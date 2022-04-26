@@ -1,0 +1,60 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Galas.Races.Results.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceResult[0].Race.Event)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceResult[0].Race.Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceResult[0].Swimmer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceResult[0].Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceResult[0].Position)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.RaceResult) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Race.Event.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Race.Class.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Swimmer.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

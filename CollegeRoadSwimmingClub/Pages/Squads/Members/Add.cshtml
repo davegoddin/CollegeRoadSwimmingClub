@@ -1,0 +1,40 @@
+﻿@page
+@using CollegeRoadSwimmingClub.Models
+@model CollegeRoadSwimmingClub.Pages.Squads.Members.AddModel
+@{
+    ViewData["Title"] = "Add squad member";
+}
+
+<h1>Add</h1>
+
+<h4>Entrant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Squad.Id" />
+            <div class="form-group">
+                <label asp-for="Member" class="control-label"></label>
+                <select asp-for="Member.Id" class="form-control" asp-items="ViewBag.MemberId"></select>
+                <span asp-validation-for="Member.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" class="form-control" asp-items="Html.GetEnumSelectList<MemberSquadRole>()"></select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="../Details" asp-route-id="@Model.Squad.Id">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

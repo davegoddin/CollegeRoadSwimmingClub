@@ -1,0 +1,45 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Galas.Races.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Race</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Race.Id" />
+            <div class="form-group">
+                <label asp-for="Race.EventId" class="control-label">Event</label>
+                <select asp-for="Race.EventId" class="form-control" asp-items="ViewBag.EventId"></select>
+                <span asp-validation-for="Race.EventId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Race.ClassId" class="control-label">Class</label>
+                <select asp-for="Race.ClassId" class="form-control" asp-items="ViewBag.ClassId"></select>
+                <span asp-validation-for="Race.ClassId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Race.DateTime" class="control-label"></label>
+                <input asp-for="Race.DateTime" class="form-control" />
+                <span asp-validation-for="Race.DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="../Details" asp-route-id="@Model.Race.GalaId">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,44 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "College Road Swimming Club";
+}
+
+<div class="text-center">
+    <h1 class="display-4">College Road Swimming Club</h1>
+    <p>Welcome to the College Road Swimming Club digital portal.</p>
+    <div class="row">
+        <div class="col-sm-4 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <i class="fa-solid fa-trophy fa-5x" style="color:#008080"></i>
+                    <p class="card-text">View galas, races and race results</p>
+                    <a asp-area="" asp-page="/Galas/Index" class="btn btn-primary">Galas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <i class="fa-solid fa-users-line fa-5x" style="color:#008080"></i>
+                    <p class="card-text">View squads and swimmers</p>
+                    <a asp-area="" asp-page="/Squads/Index" class="btn btn-primary">Squads</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <i class="fa-solid fa-scale-balanced fa-5x" style="color:#008080"></i>
+                    <p class="card-text">View and compare performance</p>
+                    <a asp-area="" asp-page="/Galas/Index" class="btn btn-primary">Performance</a>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="row">
+        <p>View swimmers' competition results and training performance, or log in to manage your membership details.</p>
+        <button class="btn-primary btn-primary btn-lg">Member Login</button>
+    </div>
+    
+</div>

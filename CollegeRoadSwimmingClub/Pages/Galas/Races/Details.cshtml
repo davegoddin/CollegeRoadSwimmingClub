@@ -1,0 +1,112 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Galas.Races.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Race</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Race.Event)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Race.Event.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Race.Gala)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Race.Gala.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Race.Class)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Race.Class.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Race.DateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Race.DateTime)
+        </dd>
+    </dl>
+</div>
+<div class="mb-4">
+    <a asp-page="./Edit" asp-route-id="@Model.Race.Id">Edit</a> |
+    <a href="javascript:history.back()">Back to List</a>
+</div>
+<div class="mb-4">
+<h4>Entrants</h4>
+<a asp-page="./Entrants/Add" asp-route-raceId="@Model.Race.Id">Add new entrant</a>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Swimmer
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Race.Entrants) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+<h4>Results</h4>
+<a asp-page="./Results/Create" asp-route-raceId="@Model.Race.Id">Add new result</a>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Swimmer
+            </th>
+            <th>
+                Time
+            </th>
+            <th>
+                Position
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Race.RaceResults) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Swimmer.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
