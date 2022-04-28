@@ -24,6 +24,7 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Pages\Classes\" />
+    <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Training\" />
   </ItemGroup>
 
