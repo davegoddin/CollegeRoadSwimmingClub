@@ -1,0 +1,14 @@
+﻿@if(User.Identity.IsAuthenticated)
+{
+    <form class"d-flex">
+        <button class="btn btn-outline-secondary" asp-page="/Account/Details">Account</button>
+        <button class="btn btn-secondary" asp-page="/Account/Logout">Logout</button>
+    </form>
+}
+else
+{
+    <form class"d-flex">
+        <button class="btn btn-outline-secondary" asp-page="/Account/Create">Create account</button>
+        <button class="btn btn-secondary" asp-page="/Account/Login">Login</button>
+    </form>
+}
