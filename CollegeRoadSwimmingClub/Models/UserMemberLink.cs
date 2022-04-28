@@ -2,6 +2,6 @@
 {
     public enum UserMemberLink
     {
-        self, parent
+        Self, Parent
     }
 }

@@ -50,5 +50,25 @@ namespace CollegeRoadSwimmingClub.Models
                 
             }
         }
+
+        [NotMapped]
+        public string? CoachList
+        {
+            get
+            {
+                if (Coaches != null && Coaches.Count > 0)
+                {
+                    var coachList = new List<string>();
+                    foreach (Member coach in Coaches)
+                    {
+                        coachList.Add(coach.FullName);
+                    }
+
+                    return string.Join(",", coachList);
+                }
+                return null; 
+            }
+            
+        }
     }
 }

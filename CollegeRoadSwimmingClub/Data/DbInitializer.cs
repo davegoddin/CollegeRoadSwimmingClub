@@ -50,7 +50,7 @@ namespace CollegeRoadSwimmingClub.Data
                     Gender = Gender.Male,
                     User = sampleUsers[0],
                     UserId = sampleUsers[0].Id,
-                    UserMemberLink = UserMemberLink.self
+                    UserMemberLink = UserMemberLink.Self
                 },
                 new Member
                 {
@@ -68,7 +68,7 @@ namespace CollegeRoadSwimmingClub.Data
                     Gender = Gender.Male,
                     User = sampleUsers[0],
                     UserId = sampleUsers[0].Id,
-                    UserMemberLink = UserMemberLink.parent
+                    UserMemberLink = UserMemberLink.Parent
                 },
                 new Member
                 {
@@ -86,7 +86,7 @@ namespace CollegeRoadSwimmingClub.Data
                     Gender = Gender.Female,
                     User = sampleUsers[1],
                     UserId = sampleUsers[1].Id,
-                    UserMemberLink = UserMemberLink.self
+                    UserMemberLink = UserMemberLink.Self
                 },
                 new Member
                 {
@@ -104,7 +104,7 @@ namespace CollegeRoadSwimmingClub.Data
                     Gender = Gender.Female,
                     User = sampleUsers[2],
                     UserId = sampleUsers[2].Id,
-                    UserMemberLink = UserMemberLink.self
+                    UserMemberLink = UserMemberLink.Self
                 },
                 new Member
                 {
@@ -122,7 +122,7 @@ namespace CollegeRoadSwimmingClub.Data
                     Gender = Gender.Male,
                     User = sampleUsers[2],
                     UserId = sampleUsers[2].Id,
-                    UserMemberLink = UserMemberLink.parent
+                    UserMemberLink = UserMemberLink.Parent
                 }
             };
 
