@@ -1,0 +1,71 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Account.DetailsModel
+
+@{
+    ViewData["Title"] = "Account";
+}
+
+<h1>Your account</h1>
+<hr />
+
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Self.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            Username
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Username)
+        </dd>
+        <dt class="col-sm-2">
+            Roles
+        </dt>
+        <dd class="col-sm-10">
+            @ViewData["Roles"]
+        </dd>
+
+    </dl>
+</div>
+
+<p><a asp-page="./Password" class="btn btn-danger">Change Password</a></p>
+@ViewData["pwd-outcome"]
+
+
+<h4>Linked Memberships</h4>
+<a asp-page="./Members/Create">Add child member to account</a>
+<hr/>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Member
+            </th>
+            <th>
+                Your link to member
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.User.LinkedMembers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserMemberLink)
+            </td>
+            <td>
+                <a asp-page="./Members/Edit" asp-route-id="@item.Id">View/Edit Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,102 @@
+﻿@page
+@using CollegeRoadSwimmingClub.Models
+@model CollegeRoadSwimmingClub.Pages.Account.Members.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Member</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Member.Id" />
+            <input type="hidden" asp-for="Member.UserId" />
+            <input type="hidden" asp-for="Member.UserMemberLink"/>
+            <div class="form-group">
+                <label asp-for="Member.FirstName" class="control-label"></label>
+                <input asp-for="Member.FirstName" class="form-control" />
+                <span asp-validation-for="Member.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.LastName" class="control-label"></label>
+                <input asp-for="Member.LastName" class="form-control" />
+                <span asp-validation-for="Member.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.DateOfBirth" class="control-label"></label>
+                <input asp-for="Member.DateOfBirth" class="form-control" disabled="disabled"/>
+                <input type="hidden" asp-for="Member.DateOfBirth"/>
+                <span asp-validation-for="Member.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.Gender" class="control-label"></label>
+                <select asp-for="Member.Gender" class="form-control" asp-items="Html.GetEnumSelectList<GenderSelect>()"></select>
+                <span asp-validation-for="Member.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.Address1" class="control-label"></label>
+                <input asp-for="Member.Address1" class="form-control" />
+                <span asp-validation-for="Member.Address1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.Address2" class="control-label"></label>
+                <input asp-for="Member.Address2" class="form-control" />
+                <span asp-validation-for="Member.Address2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.Town" class="control-label"></label>
+                <input asp-for="Member.Town" class="form-control" />
+                <span asp-validation-for="Member.Town" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.County" class="control-label"></label>
+                <input asp-for="Member.County" class="form-control" />
+                <span asp-validation-for="Member.County" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.Postcode" class="control-label"></label>
+                <input asp-for="Member.Postcode" class="form-control" />
+                <span asp-validation-for="Member.Postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.Email" class="control-label"></label>
+                <input asp-for="Member.Email" class="form-control" />
+                <span asp-validation-for="Member.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.Telephone" class="control-label"></label>
+                <input asp-for="Member.Telephone" class="form-control" />
+                <span asp-validation-for="Member.Telephone" class="text-danger"></span>
+            </div>
+            @if (Model.Member.UserMemberLink == Models.UserMemberLink.Self)
+            {
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Member.IsSwimmer" /> @Html.DisplayNameFor(model => model.Member.IsSwimmer)
+                    </label>
+                </div>
+            }
+            else
+            {
+                <input type="hidden" asp-for="Member.IsSwimmer" />
+            }
+            <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="../Details">Back to Account</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

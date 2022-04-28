@@ -23,7 +23,7 @@ namespace CollegeRoadSwimmingClub.Pages.Account
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string? returnUrl)
         {
             if (!ModelState.IsValid) return Page();
 
@@ -33,6 +33,12 @@ namespace CollegeRoadSwimmingClub.Pages.Account
             ClaimsPrincipal claimsPrincipal = GenerateClaimsPrincipal(user);
 
             await HttpContext.SignInAsync("CRSCCookieAuth", claimsPrincipal);
+
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+
             return RedirectToPage("/Index");
 
         }
