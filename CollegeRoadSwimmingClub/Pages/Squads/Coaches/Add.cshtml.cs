@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace CollegeRoadSwimmingClub.Pages.Squads.Members
+namespace CollegeRoadSwimmingClub.Pages.Squads.Coaches
 {
     public class AddModel : PageModel
     {
@@ -19,20 +19,26 @@ namespace CollegeRoadSwimmingClub.Pages.Squads.Members
         public Squad Squad { get; set; }
         [BindProperty]
         public Member Member { get; set; }
-        [BindProperty]
-        public MemberSquadRole Role { get; set; }
+        
 
         public async Task<IActionResult> OnGetAsync(int squadId)
         {
             Squad = await _context.Squads.FindAsync(squadId);
 
-            ViewData["MemberId"] = new SelectList(_context.Members.Where(m => m.IsSwimmer), "Id", "FullName");
+            Role coachRole = _context.Roles.Find(2);
 
+            var coaches = _context.Members
+                .Include(m => m.User)
+                .ThenInclude(u => u.Roles)
+                .Where(m => m.UserMemberLink == UserMemberLink.Self)
+                .Where(m => m.User.Roles.Contains(coachRole));
+
+            ViewData["MemberId"] = new SelectList(coaches, "Id", "FullName");
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(MemberSquadRole role)
+        public async Task<IActionResult> OnPostAsync()
         {
             Squad = _context.Squads.Include(s => s.MemberSquad).FirstOrDefault(s => s.Id == Squad.Id);
             if (Squad == null)
@@ -47,7 +53,7 @@ namespace CollegeRoadSwimmingClub.Pages.Squads.Members
                 Squad.MemberSquad = new List<MemberSquad>();
             }
 
-            Squad.MemberSquad.Add(new MemberSquad() { Member = member, MemberId = member.Id, Squad = Squad, SquadId = Squad.Id, MemberRole = role });
+            Squad.MemberSquad.Add(new MemberSquad() { Member = member, MemberId = member.Id, Squad = Squad, SquadId = Squad.Id, MemberRole = MemberSquadRole.Coach });
             
             await _context.SaveChangesAsync();
 

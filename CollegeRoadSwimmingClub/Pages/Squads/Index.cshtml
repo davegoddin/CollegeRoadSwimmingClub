@@ -8,22 +8,79 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New Squad</a>
 </p>
+
+@if (Model.MySquads.Count > 0)
+{
+    <h4>My squads</h4>
+    <hr/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Squad name
+                </th>
+                <th>
+                    Swimmers
+                </th>
+                <th>
+                    Coaches
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.MySquads)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfSwimmers)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CoachList)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<h4>All squads</h4>
+<hr/>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Squad[0].Name)
+                Squad name
+            </th>
+            <th>
+                Swimmers
+            </th>
+            <th>
+                Coaches
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Squad) {
+@foreach (var item in Model.AllSquads) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfSwimmers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoachList)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

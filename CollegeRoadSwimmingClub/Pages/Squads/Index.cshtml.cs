@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CollegeRoadSwimmingClub.Pages.Squads
 {
+    [Authorize(Roles = "Member")]
     public class IndexModel : PageModel
     {
         private readonly CollegeRoadSwimmingClub.Data.CRSCContext _context;
@@ -20,11 +23,30 @@ namespace CollegeRoadSwimmingClub.Pages.Squads
             _context = context;
         }
 
-        public IList<Squad> Squad { get;set; }
+        public List<Squad> AllSquads { get;set; }
+        public List<Squad> MySquads { get;set; }
 
         public async Task OnGetAsync()
         {
-            Squad = await _context.Squads.ToListAsync();
+            
+            AllSquads = await _context.Squads.Include(s => s.Members).ToListAsync();
+
+            
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                User user;
+                var userId = Int32.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                user = _context.Users.Include(u => u.LinkedMembers).First(u => u.Id == userId);
+                MySquads = AllSquads.Where(s => s.Coaches.Contains(user.Self)).ToList();
+            }
+            else
+            {
+                MySquads = new List<Squad>();
+            }
+
+            
+            
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿@page
 @using CollegeRoadSwimmingClub.Models
-@model CollegeRoadSwimmingClub.Pages.Squads.Members.AddModel
+@model CollegeRoadSwimmingClub.Pages.Squads.Swimmers.AddModel
 @{
     ViewData["Title"] = "Add squad member";
 }
 
 <h1>Add</h1>
 
-<h4>Entrant</h4>
+<h4>Swimmer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,11 +18,6 @@
                 <label asp-for="Member" class="control-label"></label>
                 <select asp-for="Member.Id" class="form-control" asp-items="ViewBag.MemberId"></select>
                 <span asp-validation-for="Member.Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" class="form-control" asp-items="Html.GetEnumSelectList<MemberSquadRole>()"></select>
-                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -36,15 +36,15 @@ namespace CollegeRoadSwimmingClub.Pages.Squads
                 return NotFound();
             }
 
-            List<string> coachList = new List<string>();
-            foreach (Member coach in Squad.Coaches)
-            {
-                coachList.Add(coach.FullName);
-            }
+            //List<string> coachList = new List<string>();
+            //foreach (Member coach in Squad.Coaches)
+            //{
+            //    coachList.Add(coach.FullName);
+            //}
             
-            var coaches = string.Join(",", coachList);
+            //var coaches = string.Join(",", coachList);
 
-            ViewData["CoachList"] = coaches;
+            //ViewData["CoachList"] = coaches;
             return Page();
         }
     }

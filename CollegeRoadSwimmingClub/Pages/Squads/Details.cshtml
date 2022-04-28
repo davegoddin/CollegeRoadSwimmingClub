@@ -22,7 +22,7 @@
             Coaches
         </dt>
         <dd class="col-sm-10">
-            @ViewData["CoachList"]
+            @Html.DisplayFor(model => model.Squad.CoachList)
         </dd>
     </dl>
 </div>
@@ -32,7 +32,7 @@
 </div>
 <div>
     <p>
-        <a asp-page="./Members/Add" asp-route-squadId="@Model.Squad.Id">Add squad member</a>
+        <a asp-page="./Swimmers/Add" asp-route-squadId="@Model.Squad.Id">Add swimmer</a> | <a asp-page="./Coaches/Add" asp-route-squadId="@Model.Squad.Id">Add coach</a>
     </p>
     <h4>Swimmers</h4>
     <hr/>
