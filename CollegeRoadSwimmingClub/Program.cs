@@ -10,10 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 
-builder.Services.AddAuthentication().AddCookie("CRSCCookieAuth", options =>
+builder.Services.AddAuthentication("CRSCCookieAuth").AddCookie("CRSCCookieAuth", options =>
 {
     options.Cookie.Name = "CRSCCookieAuth";
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Errors/403";
 });
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<CRSCContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CRSCContext"))); 
 
