@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CollegeRoadSwimmingClub.Pages.Galas
 {
+    [Authorize(Roles = "Administrator")]
     public class DeleteModel : PageModel
     {
         private readonly CollegeRoadSwimmingClub.Data.CRSCContext _context;

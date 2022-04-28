@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CollegeRoadSwimmingClub.Pages.Galas
 {
+    [Authorize(Roles = "Administrator")]
     public class EditModel : PageModel
     {
         private readonly CollegeRoadSwimmingClub.Data.CRSCContext _context;
