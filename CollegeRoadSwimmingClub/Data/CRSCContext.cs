@@ -40,7 +40,7 @@ namespace CollegeRoadSwimmingClub.Data
                 .WithMany(s => s.MemberSquad)
                 .HasForeignKey(ms => ms.SquadId),
                 j => j
-                .HasKey(m => new { m.SquadId, m.MemberId }));
+                .HasKey(m => new { m.SquadId, m.MemberId, m.MemberRole }));
 
             
 

@@ -14,9 +14,9 @@ namespace CollegeRoadSwimmingClub.Data
 
             var defaultRoles = new Role[]
             {
-                new Role { Name = "Member" },
-                new Role { Name = "Coach" },
-                new Role { Name = "Administrator" }
+                new Role { Name = "Member", Users = new List<User>() },
+                new Role { Name = "Coach", Users = new List<User>() },
+                new Role { Name = "Administrator", Users = new List<User>() }
             };
 
             context.Roles.AddRange(defaultRoles);
@@ -24,12 +24,21 @@ namespace CollegeRoadSwimmingClub.Data
 
             var sampleUsers = new User[]
             {
-                new User { Username = "aanderson", Password = "pass"},
-                new User { Username = "bbrandt", Password = "pass"},
-                new User { Username = "ccooper", Password = "pass"},
+                new User { Username = "aanderson", Password = "AQAAAAEAACcQAAAAEDU+5OnW55BMc4POCxpeIWQaRfunkLCGBhH8woHpC7Ma3x+Vr3rvmWuckVOpGToOog==" },
+                new User { Username = "bbrandt", Password = "AQAAAAEAACcQAAAAEDU+5OnW55BMc4POCxpeIWQaRfunkLCGBhH8woHpC7Ma3x+Vr3rvmWuckVOpGToOog=="},
+                new User { Username = "ccooper", Password = "AQAAAAEAACcQAAAAEDU+5OnW55BMc4POCxpeIWQaRfunkLCGBhH8woHpC7Ma3x+Vr3rvmWuckVOpGToOog=="},
             };
 
             context.Users.AddRange(sampleUsers);
+            context.SaveChanges();
+
+            defaultRoles[0].Users.Add(sampleUsers[0]);
+            defaultRoles[0].Users.Add(sampleUsers[1]);
+            defaultRoles[0].Users.Add(sampleUsers[2]);
+            defaultRoles[1].Users.Add(sampleUsers[1]);
+            defaultRoles[1].Users.Add(sampleUsers[2]);
+            defaultRoles[2].Users.Add(sampleUsers[0]);
+
             context.SaveChanges();
 
             var sampleMembers = new Member[]
