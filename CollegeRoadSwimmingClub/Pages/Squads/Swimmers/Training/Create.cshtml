@@ -1,0 +1,49 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Squads.Swimmers.Training.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Training Result</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="TrainingResult.SwimmerId" type = "hidden" />
+            <div class="form-group">
+                <label asp-for="TrainingResult.SwimmerId" class="control-label"></label>
+                <select asp-for="TrainingResult.SwimmerId" class ="form-control" asp-items="ViewBag.SwimmerId" disabled></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TrainingResult.EventId" class="control-label"></label>
+                <select asp-for="TrainingResult.EventId" class ="form-control" asp-items="ViewBag.EventId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrainingResult.Time" class="control-label"></label>
+                <input asp-for="TrainingResult.Time" class="form-control" />
+                <span asp-validation-for="TrainingResult.Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrainingResult.Date" class="control-label"></label>
+                <input asp-for="TrainingResult.Date" class="form-control" />
+                <span asp-validation-for="TrainingResult.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="../Details" asp-route-id="@Model.TrainingResult.SwimmerId">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

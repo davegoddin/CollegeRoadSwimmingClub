@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
 
-namespace CollegeRoadSwimmingClub.Pages.Users
+namespace CollegeRoadSwimmingClub.Pages.Squads.Swimmers.Training
 {
     public class CreateModel : PageModel
     {
@@ -20,13 +20,23 @@ namespace CollegeRoadSwimmingClub.Pages.Users
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? swimmerId)
         {
+            if (swimmerId == null)
+            {
+                RedirectToPage("../../Index", new { id = TempData.First(t => t.Key == "SquadId")});
+            }
+
+            TrainingResult = new TrainingResult() { SwimmerId = (int)swimmerId, Date = DateTime.Today };
+
+            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Name");
+            ViewData["SwimmerId"] = new SelectList(_context.Members.Where(m => m.IsSwimmer), "Id", "FullName");
             return Page();
         }
 
         [BindProperty]
-        public User User { get; set; }
+        public TrainingResult TrainingResult { get; set; }
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -36,10 +46,10 @@ namespace CollegeRoadSwimmingClub.Pages.Users
                 return Page();
             }
 
-            _context.Users.Add(User);
+            _context.TrainingResults.Add(TrainingResult);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Details", new { id = TrainingResult.SwimmerId });
         }
     }
 }

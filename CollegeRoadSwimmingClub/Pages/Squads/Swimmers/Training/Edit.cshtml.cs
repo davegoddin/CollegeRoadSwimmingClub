@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
 
-namespace CollegeRoadSwimmingClub.Pages.Users
+namespace CollegeRoadSwimmingClub.Pages.Squads.Swimmers.Training
 {
     public class EditModel : PageModel
     {
@@ -22,7 +22,7 @@ namespace CollegeRoadSwimmingClub.Pages.Users
         }
 
         [BindProperty]
-        public User User { get; set; }
+        public TrainingResult TrainingResult { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,12 +31,16 @@ namespace CollegeRoadSwimmingClub.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            TrainingResult = await _context.TrainingResults
+                .Include(t => t.Event)
+                .Include(t => t.Swimmer).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (User == null)
+            if (TrainingResult == null)
             {
                 return NotFound();
             }
+           ViewData["EventId"] = new SelectList(_context.Events, "Id", "Id");
+           ViewData["SwimmerId"] = new SelectList(_context.Members, "Id", "Address1");
             return Page();
         }
 
@@ -49,7 +53,7 @@ namespace CollegeRoadSwimmingClub.Pages.Users
                 return Page();
             }
 
-            _context.Attach(User).State = EntityState.Modified;
+            _context.Attach(TrainingResult).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +61,7 @@ namespace CollegeRoadSwimmingClub.Pages.Users
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.Id))
+                if (!TrainingResultExists(TrainingResult.Id))
                 {
                     return NotFound();
                 }
@@ -70,9 +74,9 @@ namespace CollegeRoadSwimmingClub.Pages.Users
             return RedirectToPage("./Index");
         }
 
-        private bool UserExists(int id)
+        private bool TrainingResultExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.TrainingResults.Any(e => e.Id == id);
         }
     }
 }

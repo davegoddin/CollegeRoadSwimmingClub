@@ -2,19 +2,16 @@
 
 namespace CollegeRoadSwimmingClub.Models
 {
-    public class TrainingResult
+    public class Result
     {
-        public int Id { get; set; }
-        public int SwimmerId { get; set; }
-        public Member? Swimmer { get; set; }
-        public int EventId { get; set; }
-        public Event? Event { get; set; }
+        public Event Event { get; set; }
         [DisplayFormat(DataFormatString = "{0:h\\:mm\\:ss\\.ff}")]
         public TimeSpan Time { get; set; }
+        public int? Position { get; set; }
+        public Member Swimmer { get; set; }
+        public bool Competition { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
-        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
-
     }
 }

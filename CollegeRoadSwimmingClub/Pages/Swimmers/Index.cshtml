@@ -1,0 +1,106 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Swimmers.IndexModel
+
+@{
+    ViewData["Title"] = "Swimmers";
+}
+
+<h1>Swimmers</h1>
+
+
+<form method="get">
+    <div class="row row-cols-lg-auto g-3 mb-3">
+        <div class="col-12">
+            <input class="form-control" name="search" placeholder="Enter swimmer name" value="@Model.Search"/>
+        </div>
+        <div class="col-12">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+        <div class="col-12 d-flex align-items-center">
+            <a class="align-middle" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Filter results <i class="fa-solid fa-caret-down"></i></a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="collapse" id="collapseExample">
+            <div class="row">
+                <div class="col-6">
+                    <label for="gender" class="control-label">Gender</label>
+                    <select name="gender" asp-items="@ViewBag.GenderList" class="form-control" asp-for="Gender"></select>
+                </div>
+                <div class="col-6">
+                    <label for="ageMin" class="control-label">Min. age</label>
+                    <input name="ageMin" class="form-control" value="@Model.AgeMax"/>
+                    <label for="ageMax" class="control-label" value="@Model.AgeMin">Max. age</label>
+                    <input name="ageMax" class="form-control"/>
+                </div>
+            </div>
+            <div class="row row-cols-lg-auto g-3 pt-3 justify-content-end">
+                <div class="col-2">
+                    <input type="submit" value="Apply filters" class="btn btn-primary">
+                </div>
+        
+            </div>
+        </div>
+    </div>
+    
+
+</form>
+
+<form asp-page="./Compare" method="get">
+    <input type="submit" value="Compare selected" class="btn-primary btn"/>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Select
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.FirstNameSort">
+                    @Html.DisplayNameFor(model => model.Swimmers[0].FirstName)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.LastNameSort">
+                    @Html.DisplayNameFor(model => model.Swimmers[0].LastName)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.AgeSort">
+                    @Html.DisplayNameFor(model => model.Swimmers[0].Age)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.GenderSort">
+                    @Html.DisplayNameFor(model => model.Swimmers[0].Gender)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Swimmers) {
+        <tr>
+            <td>
+                <input type="checkbox" name="selectedSwimmer" value="@item.Id">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.Id">View Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</form>

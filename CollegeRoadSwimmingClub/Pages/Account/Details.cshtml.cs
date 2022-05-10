@@ -48,7 +48,7 @@ namespace CollegeRoadSwimmingClub.Pages.Account
                 }
             }
 
-            ViewData["Roles"] = string.Join(",", roleList);
+            ViewData["Roles"] = string.Join(", ", roleList);
 
             return Page();
         }

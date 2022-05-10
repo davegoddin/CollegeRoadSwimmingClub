@@ -64,7 +64,7 @@ namespace CollegeRoadSwimmingClub.Models
                         coachList.Add(coach.FullName);
                     }
 
-                    return string.Join(",", coachList);
+                    return string.Join(", ", coachList);
                 }
                 return null; 
             }

@@ -62,7 +62,7 @@ namespace CollegeRoadSwimmingClub.Pages.Account.Members
             _context.Members.Add(Member);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Details");
+            return RedirectToPage("../Details");
         }
     }
 }

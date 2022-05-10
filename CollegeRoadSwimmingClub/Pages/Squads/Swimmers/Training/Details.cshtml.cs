@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
 
-namespace CollegeRoadSwimmingClub.Pages.Users
+namespace CollegeRoadSwimmingClub.Pages.Squads.Swimmers.Training
 {
     public class DetailsModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace CollegeRoadSwimmingClub.Pages.Users
             _context = context;
         }
 
-        public User User { get; set; }
+        public TrainingResult TrainingResult { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,11 @@ namespace CollegeRoadSwimmingClub.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            TrainingResult = await _context.TrainingResults
+                .Include(t => t.Event)
+                .Include(t => t.Swimmer).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (User == null)
+            if (TrainingResult == null)
             {
                 return NotFound();
             }
