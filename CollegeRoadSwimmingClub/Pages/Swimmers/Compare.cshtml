@@ -74,19 +74,25 @@
     <thead>
         <tr>
             <th>
-                Date
+                <a asp-page="./Compare" asp-all-route-data="@Model.queryParams" asp-route-sortOrder="@Model.DateSort">
+                    Date
+                </a>
             </th>
-            <th>
+            <th>                
                 Swimmer
             </th>
             <th>
                 Event
             </th>
             <th>
+                <a asp-page="./Compare" asp-all-route-data="@Model.queryParams" asp-route-sortOrder="@Model.TimeSort">
                 Time
+                </a>
             </th>
             <th>
+                <a asp-page="./Compare" asp-all-route-data="@Model.queryParams" asp-route-sortOrder="@Model.PositionSort">
                 Position
+                </a>
             </th>
             <th>
                 In competition?

@@ -58,16 +58,22 @@
     <thead>
         <tr>
             <th>
-                Date
+                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.DateSort">
+                    Date
+                </a>
             </th>
             <th>
                 Event
             </th>
             <th>
-                Time
+                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.TimeSort">
+                    Time
+                </a>
             </th>
             <th>
-                Position
+                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.PositionSort">
+                    Position
+                </a>
             </th>
             <th>
                 In competition?
@@ -78,15 +84,20 @@
 @foreach (var item in Model.Results) {
         <tr>
             <td>
+                
                 @Html.DisplayFor(modelItem => item.Date)
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Event.Name)
             </td>
             <td>
+                
                 @Html.DisplayFor(modelItem => item.Time)
+                
             </td>
             <td>
+                
                 @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>

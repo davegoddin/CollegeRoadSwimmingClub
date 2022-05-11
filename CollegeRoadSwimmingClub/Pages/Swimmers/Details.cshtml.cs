@@ -21,11 +21,15 @@ namespace CollegeRoadSwimmingClub.Pages.Swimmers
             _context = context;
         }
 
+        public string DateSort { get; set; }
+        public string TimeSort { get; set; }
+        public string PositionSort { get; set; }
+
         public Member Member { get; set; }
         public List<Result> Results { get; set; }
 
         public int? EventId {  get; set; }
-        public async Task<IActionResult> OnGetAsync(int? id, int? eventId)
+        public async Task<IActionResult> OnGetAsync(int? id, int? eventId, string sortOrder)
         {
             if (id == null)
             {
@@ -39,6 +43,7 @@ namespace CollegeRoadSwimmingClub.Pages.Swimmers
                 return NotFound();
             }
 
+            
             List<RaceResult> raceResults = await _context.RaceResults.Include(rr => rr.Race).ThenInclude(r => r.Event).Where(rr => rr.SwimmerId == Member.Id).ToListAsync();
             List<TrainingResult> trainingResults = await _context.TrainingResults.Include(tr => tr.Event).Where(tr => tr.SwimmerId == Member.Id).ToListAsync();
 
@@ -63,6 +68,37 @@ namespace CollegeRoadSwimmingClub.Pages.Swimmers
             {
                 Results.Add(new Result() { Swimmer = Member, Event = tr.Event, Position = null, Time = tr.Time, Competition = false, Date = tr.Date });
             }
+
+            DateSort = (sortOrder == "date_desc" || string.IsNullOrEmpty(sortOrder)) ? "date_asc" : "date_desc";
+            TimeSort = (sortOrder == "time_desc" || string.IsNullOrEmpty(sortOrder)) ? "time_asc" : "time_desc";
+            PositionSort = (sortOrder == "position_desc" || string.IsNullOrEmpty(sortOrder)) ? "position_asc" : "position_desc";
+
+
+            switch (sortOrder)
+            {
+                case "date_asc":
+                    Results = Results.OrderBy(r => r.Date).ToList();
+                    break;
+                case "date_desc":
+                    Results = Results.OrderByDescending(r => r.Date).ToList();
+                    break;
+                case "time_asc":
+                    Results = Results.OrderBy(r => r.Time).ToList();
+                    break;
+                case "time_desc":
+                    Results = Results.OrderByDescending(r => r.Time).ToList();
+                    break;
+                case "position_asc":
+                    Results = Results.OrderBy(r => r.Position).ToList();
+                    break;
+                case "position_desc":
+                    Results = Results.OrderByDescending(r => r.Position).ToList();
+                    break;
+                default:
+                    Results = Results.OrderByDescending(r => r.Date).ToList();
+                    break;
+            }
+
 
             List<Event> swimmerEvents = new List<Event>();
 
