@@ -1,12 +1,15 @@
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CollegeRoadSwimmingClub.Pages.Squads.Coaches
-{
+{   
+    [Authorize(Roles = "Coach")]
     public class AddModel : PageModel
     {
         private readonly CRSCContext _context;
@@ -23,7 +26,7 @@ namespace CollegeRoadSwimmingClub.Pages.Squads.Coaches
 
         public async Task<IActionResult> OnGetAsync(int squadId)
         {
-            Squad = await _context.Squads.FindAsync(squadId);
+            Squad = await _context.Squads.Include(s => s.Members).Include(s => s.MemberSquad).FirstOrDefaultAsync(s => s.Id == squadId);
 
             Role coachRole = _context.Roles.Find(2);
 
@@ -33,7 +36,9 @@ namespace CollegeRoadSwimmingClub.Pages.Squads.Coaches
                 .Where(m => m.UserMemberLink == UserMemberLink.Self)
                 .Where(m => m.User.Roles.Contains(coachRole));
 
-            ViewData["MemberId"] = new SelectList(coaches, "Id", "FullName");
+            var eligibleCoaches = coaches.Where(c => !Squad.Coaches.Contains(c));
+
+            ViewData["MemberId"] = new SelectList(eligibleCoaches, "Id", "FullName");
 
             return Page();
         }

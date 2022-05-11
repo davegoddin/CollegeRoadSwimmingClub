@@ -28,11 +28,17 @@
             @Html.DisplayFor(model => model.Squad.NumberOfSwimmers)
         </dd>
     </dl>
-    <a asp-page="./Edit" asp-route-id="@Model.Squad.Id">Edit</a>
+    @if (Model.Squad.Coaches.Contains(Model.User.Self))
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Squad.Id">Edit</a>
+    }
 </div>
 <div class="mb-4">
     <h4>Coaches</h4>
-    <a asp-page="./Coaches/Add" asp-route-squadId="@Model.Squad.Id">Add coach</a>
+    @if (Model.Squad.Coaches.Contains(Model.User.Self))
+    {
+        <a asp-page="./Coaches/Add" asp-route-squadId="@Model.Squad.Id">Add coach</a>
+    }
     <hr/>
     <table class="table">
         <thead>
@@ -50,8 +56,13 @@
                     @Html.DisplayFor(modelItem => item.FullName)
                 </td>
                 <td>
-                    <a asp-page="./Swimmers/Remove" asp-route-id="@item.Id">Remove</a>
-                </td>
+                        @if (Model.Squad.Coaches.Count > 1 && Model.Squad.Coaches.Contains(Model.User.Self))
+                        {
+                            <form method="post" asp-page="./Coaches/Remove" asp-route-squadId = "@Model.Squad.Id" asp-route-memberId = "@item.Id">
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        }
+                    </td>
             </tr>
     }
         </tbody>
@@ -60,7 +71,10 @@
 <div>
     
     <h4>Swimmers</h4>
-    <a asp-page="./Swimmers/Add" asp-route-squadId="@Model.Squad.Id">Add swimmer</a>
+    @if (Model.Squad.Coaches.Contains(Model.User.Self))
+    {
+        <a asp-page="./Swimmers/Add" asp-route-squadId="@Model.Squad.Id">Add swimmer</a>
+    }
     <hr/>
     <table class="table">
         <thead>
@@ -90,8 +104,14 @@
                     @Html.DisplayFor(modelItem => item.Gender)
                 </td>
                 <td>
-                    <a asp-page="./Swimmers/Details" asp-route-id="@item.Id">Training Performance</a> |
-                    <a asp-page="./Swimmers/Remove" asp-route-id="@item.Id">Remove from squad</a>
+                        @if (Model.Squad.Coaches.Contains(Model.User.Self))
+                        {
+                            <form method="post" asp-page="./Swimmers/Remove" asp-route-squadId = "@Model.Squad.Id" asp-route-memberId = "@item.Id">
+                                <a asp-page="./Swimmers/Details" asp-route-id="@item.Id">Training Performance</a> |
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        }
+
                 </td>
             </tr>
     }

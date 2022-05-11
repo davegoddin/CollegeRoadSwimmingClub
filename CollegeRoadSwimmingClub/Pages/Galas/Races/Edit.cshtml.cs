@@ -73,7 +73,7 @@ namespace CollegeRoadSwimmingClub.Pages.Galas.Races
                         throw;
                     }
                 }
-                return RedirectToPage("../Details", new { id = Race.GalaId });
+                return RedirectToPage("../Details", new { id = raceToUpdate.GalaId });
             }
 
        

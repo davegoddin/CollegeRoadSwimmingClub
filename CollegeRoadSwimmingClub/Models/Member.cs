@@ -11,13 +11,16 @@ namespace CollegeRoadSwimmingClub.Models
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Display(Name = "First Name")]
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
+        [Required]
         public DateTime DateOfBirth { get; set; }
 
         public Gender Gender { get; set; }

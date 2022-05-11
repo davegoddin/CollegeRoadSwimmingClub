@@ -6,10 +6,12 @@
 }
 
 <h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New Squad</a>
-</p>
+@if (User.IsInRole("Coach"))
+{
+    <p>
+        <a asp-page="Create">Create New Squad</a>
+    </p>
+}
 
 @if (Model.MySquads.Count > 0)
 {
@@ -44,9 +46,17 @@
                         @Html.DisplayFor(modelItem => item.CoachList)
                     </td>
                     <td>
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        @if(Model.CoachedSquads.Contains(item))
+                        {
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a><text> | </text>
+                        }
+                        
+                         <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                        @if(Model.CoachedSquads.Contains(item))
+                        {
+                           <text> | </text>
+                           <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>    
+                        }
                     </td>
                 </tr>
             }
@@ -83,9 +93,7 @@
                 @Html.DisplayFor(modelItem => item.CoachList)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>           
             </td>
         </tr>
 }

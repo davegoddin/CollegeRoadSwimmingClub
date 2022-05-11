@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CollegeRoadSwimmingClub.Pages.Squads
 {
+    [Authorize(Roles = "Coach")]
     public class DeleteModel : PageModel
     {
         private readonly CollegeRoadSwimmingClub.Data.CRSCContext _context;
@@ -30,12 +33,24 @@ namespace CollegeRoadSwimmingClub.Pages.Squads
                 return NotFound();
             }
 
-            Squad = await _context.Squads.FirstOrDefaultAsync(m => m.Id == id);
+            Squad = await _context.Squads.Include(s => s.Members).Include(s => s.MemberSquad).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Squad == null)
             {
                 return NotFound();
             }
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                User user;
+                var userId = Int32.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                user = _context.Users.Include(u => u.LinkedMembers).First(u => u.Id == userId);
+                if (!Squad.Coaches.Contains(user.Self))
+                {
+                    return Forbid();
+                }
+            }
+
             return Page();
         }
 

@@ -41,9 +41,14 @@ namespace CollegeRoadSwimmingClub.Pages.Squads.Swimmers.Training
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            if (TrainingResult.Time <= TimeSpan.Zero || TrainingResult.Time > new TimeSpan(0, 9, 59, 59, 999))
+            {
+                ModelState.AddModelError("TrainingResult.Time", "Time must be more than 0 and less than 9:59:59:99");
+            }
+
             if (!ModelState.IsValid)
             {
-                return Page();
+                return OnGet(TrainingResult.SwimmerId);
             }
 
             _context.TrainingResults.Add(TrainingResult);

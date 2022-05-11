@@ -38,12 +38,19 @@
     </dl>
 </div>
 <div class="mb-4">
-    <a asp-page="./Edit" asp-route-id="@Model.Race.Id">Edit</a> |
+    @if(User.IsInRole("Administrator"))
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Race.Id">Edit</a><text> | </text> 
+    }
     <a asp-page="../Details" asp-route-id="@Model.Race.GalaId">Back to List</a>
 </div>
 <div class="mb-4">
 <h4>Entrants</h4>
-<a asp-page="./Entrants/Add" asp-route-raceId="@Model.Race.Id">Add new entrant</a>
+@if(User.IsInRole("Administrator"))
+{
+    <a asp-page="./Entrants/Add" asp-route-raceId="@Model.Race.Id">Add new entrant</a>    
+    }
+    
 <hr />
 <table class="table">
     <thead>
@@ -61,9 +68,14 @@
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                @if(User.IsInRole("Administrator"))
+                {
+                   <form asp-page="./Entrants/Remove" method="post" asp-route-raceId = "@Model.Race.Id" asp-route-memberId="@item.Id">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>         
+                }
+                
+                
             </td>
         </tr>
 }
@@ -71,7 +83,10 @@
 </table>
 </div>
 <h4>Results</h4>
-<a asp-page="./Results/Create" asp-route-raceId="@Model.Race.Id">Add new result</a>
+@if (User.IsInRole("Administrator"))
+{
+    <a asp-page="./Results/Create" asp-route-raceId="@Model.Race.Id">Add new result</a>
+}
 <hr />
 <table class="table">
     <thead>
@@ -101,9 +116,11 @@
                 @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                @if(User.IsInRole("Administrator"))
+                {
+                    <a asp-page="./Results/Delete" asp-route-id="@item.Id">Delete</a>        
+                }
+                
             </td>
         </tr>
 }

@@ -37,11 +37,18 @@
     </dl>
 </div>
 <div class="mb-4">
-    <a asp-page="./Edit" asp-route-id="@Model.Gala.Id">Edit</a>
+    @if(User.IsInRole("Administrator"))
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Gala.Id">Edit</a>    
+    }
+    
     
 </div>
 <h4>Races</h4>
-<a asp-page="./Races/Create" asp-route-galaId="@Model.Gala.Id">Add new race</a>
+@if (User.IsInRole("Administrator"))
+{
+    <a asp-page="./Races/Create" asp-route-galaId="@Model.Gala.Id">Add new race</a>
+}
 
 <div>
     <hr />
@@ -73,9 +80,15 @@
                 @Html.DisplayFor(modelItem => item.DateTime)
             </td>
             <td>
-                <a asp-page="./Races/Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Races/Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Races/Delete" asp-route-id="@item.Id">Delete</a>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <a asp-page="./Races/Edit" asp-route-id="@item.Id">Edit</a><text> | </text>
+                }
+                <a asp-page="./Races/Details" asp-route-id="@item.Id">Details</a>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <text> | </text><a asp-page="./Races/Delete" asp-route-id="@item.Id">Delete</a>
+                }
             </td>
         </tr>
 }

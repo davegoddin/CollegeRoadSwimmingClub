@@ -15,7 +15,10 @@
         {
             bool eligible = true;
 
-            
+            if (!swimmer.IsSwimmer)
+            {
+                eligible = false;
+            }
 
             //check for age and gender restrictions
             if (MinAge != null && swimmer.Age < MinAge)

@@ -36,6 +36,7 @@ namespace CollegeRoadSwimmingClub.Pages.Account.Members
                 Town = user.Self.Town,
                 County = user.Self.County,
                 Postcode = user.Self.Postcode,
+                DateOfBirth = DateTime.Today,
                 Email = user.Self.Email,
                 Telephone = user.Self.Telephone,
                 UserId = userId,
@@ -54,6 +55,11 @@ namespace CollegeRoadSwimmingClub.Pages.Account.Members
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            if (Member.Age >= 18)
+            {
+                ModelState.AddModelError("Member.DateOfBirth", "Linked members must be under 18, over 18s should make their own account");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

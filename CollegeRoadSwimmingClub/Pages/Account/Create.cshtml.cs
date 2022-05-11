@@ -34,28 +34,41 @@ namespace CollegeRoadSwimmingClub.Pages.Account
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            //check for existing user with same username
+            if (_context.Users.FirstOrDefault(u => u.Username == User.Username) != null)
+            {
+                ModelState.AddModelError("User.Username", "User with this name already exists");
+            }
+
+            // check for under 18s
+            if (Member.Age < 18)
+            {
+                ModelState.AddModelError("Member.DateOfBirth", "Membership for under 18s must be managed by a parent or guardian");
+            }
+            
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            // hash password
             var passwordHasher = new PasswordHasher<User>();
             User.Password = passwordHasher.HashPassword(User, User.Password);
+
+            // give user default role
             User.Roles = new List<Role>() { _context.Roles.First(r => r.Name == "Member") };
+
+            //link user and member
             User.LinkedMembers = new List<Member>();
-
             _context.Users.Add(User);
-
             Member.UserMemberLink = UserMemberLink.Self;
             Member.User = User;
-
             _context.Members.Add(Member);
-
             User.LinkedMembers.Add(Member);
 
             await _context.SaveChangesAsync();
 
-            return Redirect("./Index");
+            return Redirect("./Login?returnUrl=%2FAccount%2FDetails");
         }
     }
 }

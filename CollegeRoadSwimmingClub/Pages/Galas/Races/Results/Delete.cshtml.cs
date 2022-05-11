@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CollegeRoadSwimmingClub.Pages.Galas.Races.Results
 {
+    [Authorize(Roles = "Administrator")]
     public class DeleteModel : PageModel
     {
         private readonly CollegeRoadSwimmingClub.Data.CRSCContext _context;
@@ -56,7 +58,7 @@ namespace CollegeRoadSwimmingClub.Pages.Galas.Races.Results
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Details", new { id = RaceResult.RaceId });
         }
     }
 }

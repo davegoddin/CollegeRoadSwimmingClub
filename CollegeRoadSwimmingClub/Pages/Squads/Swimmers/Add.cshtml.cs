@@ -23,9 +23,11 @@ namespace CollegeRoadSwimmingClub.Pages.Squads.Swimmers
 
         public async Task<IActionResult> OnGetAsync(int squadId)
         {
-            Squad = await _context.Squads.FindAsync(squadId);
+            Squad = _context.Squads.Include(s => s.Members).Include(s => s.MemberSquad).FirstOrDefault(s => s.Id == squadId);
 
-            ViewData["MemberId"] = new SelectList(_context.Members.Where(m => m.IsSwimmer), "Id", "FullName");
+            var eligibleMembers = _context.Members.Where(m => m.IsSwimmer && !Squad.Swimmers.Contains(m)).ToList();
+
+            ViewData["MemberId"] = new SelectList(eligibleMembers, "Id", "FullName");
 
 
             return Page();

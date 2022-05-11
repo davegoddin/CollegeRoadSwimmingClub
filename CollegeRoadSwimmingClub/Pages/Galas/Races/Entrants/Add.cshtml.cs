@@ -22,9 +22,16 @@ namespace CollegeRoadSwimmingClub.Pages.Galas.Races.Entrants
 
         public async Task<IActionResult> OnGetAsync(int raceId)
         {
-            Race = await _context.Races.FindAsync(raceId);
+            Race = await _context.Races.Include(r => r.Class).Include(r => r.Entrants).FirstOrDefaultAsync(r => r.Id == raceId);
+            if (Race == null)
+            {
+                return NotFound();
+            }
 
-            ViewData["EntrantId"] = new SelectList(_context.Members.Where(m => m.IsSwimmer), "Id", "FullName");
+            var validEntrants = _context.Members.ToList().Where(m => Race.Class.IsEligible(m) && !Race.Entrants.Contains(m)).ToList();
+            
+
+            ViewData["EntrantId"] = new SelectList(validEntrants, "Id", "FullName");
 
             return Page();
         }

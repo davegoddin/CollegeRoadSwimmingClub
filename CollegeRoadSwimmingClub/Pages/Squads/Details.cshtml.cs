@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CollegeRoadSwimmingClub.Data;
 using CollegeRoadSwimmingClub.Models;
+using System.Security.Claims;
 
 namespace CollegeRoadSwimmingClub.Pages.Squads
 {
@@ -21,6 +22,7 @@ namespace CollegeRoadSwimmingClub.Pages.Squads
         }
 
         public Squad Squad { get; set; }
+        public User User { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,15 +38,13 @@ namespace CollegeRoadSwimmingClub.Pages.Squads
                 return NotFound();
             }
 
-            //List<string> coachList = new List<string>();
-            //foreach (Member coach in Squad.Coaches)
-            //{
-            //    coachList.Add(coach.FullName);
-            //}
-            
-            //var coaches = string.Join(",", coachList);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
 
-            //ViewData["CoachList"] = coaches;
+                var userId = Int32.Parse(HttpContext.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                User = _context.Users.Include(u => u.LinkedMembers).First(u => u.Id == userId);
+            }
+
             return Page();
         }
     }
