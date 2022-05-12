@@ -1,0 +1,115 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Admin.Members.DetailsModel
+@{
+    ViewData["Title"] = "";
+}
+
+<h1>Edit</h1>
+
+<h4>Member</h4>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            User account name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.User.Username)
+        </dd>
+        <dt class="col-sm-2">
+            Roles
+        </dt>
+        <dd class="col-sm-10">
+            @ViewData["CurrentRoles"]
+        </dd>
+        <dt class="col-sm-2">
+            Linked Members
+        </dt>
+        <dd class="col-sm-10">
+            @ViewData["LinkedMembers"]
+        </dd>
+        <dt class="col-sm-2">
+            Date of Birth
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.DateOfBirth)
+        </dd>
+        <dt class="col-sm-2">
+            Address Line 1
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.Address1)
+        </dd>
+        <dt class="col-sm-2">
+            Address line 2
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.Address2)
+        </dd>
+        <dt class="col-sm-2">
+            Town
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.Town)
+        </dd>
+        <dt class="col-sm-2">
+            County
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.County)
+        </dd>
+        <dt class="col-sm-2">
+            Postcode
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.Postcode)
+        </dd>
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Telephone
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member.Telephone)
+        </dd>
+
+    </dl>
+</div>
+
+<hr />
+
+@if (Model.Member.User.Self == Model.Member)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Role.Id" class="control-label">Add Role</label>
+                    <select asp-for="Role.Id" class="form-control" asp-items="ViewBag.RoleList"></select>
+                    <span asp-validation-for="Role.Id" class="text-danger"></span>
+                    <input type="hidden" name = "userId" value="@Model.Member.UserId" />
+                    <input type="hidden" name = "memberId" value="@Model.Member.Id" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-page="./Index">Back</a>
+</div>

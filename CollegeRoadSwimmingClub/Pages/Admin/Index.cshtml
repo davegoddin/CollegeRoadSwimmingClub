@@ -1,0 +1,29 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "College Road Swimming Club";
+}
+
+<div class="text-center">
+    <h1>Admin functions</h1>
+    <div class="row">
+        <div class="col-sm-6 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header bg-white"><i class="fa-solid fa-users fa-5x" style="color:#008080"></i></div>
+                <div class="card-body">
+                    <p><a asp-area="" asp-page="./Members/Index" class="btn btn-secondary">Members</a></p>
+                    <p class="card-text">View full list of members including personal details</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header bg-white"><i class="fa-solid fa-users-between-lines fa-5x" style="color:#008080"></i></div>
+                <div class="card-body">
+                    <p><a asp-area="" asp-page="./Classes/Index" class="btn btn-secondary">Classes</a></p>
+                    <p class="card-text">View, edit and add competition classes</p>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

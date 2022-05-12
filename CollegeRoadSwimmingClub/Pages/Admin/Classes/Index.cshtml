@@ -1,0 +1,60 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Admin.Classes.IndexModel
+@{
+    ViewData["Title"] = "Classes";
+}
+
+<h1>Classes</h1>
+<a asp-page="./Create">Add new class</a>
+<hr/>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Classes[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Classes[0].MinAge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Classes[0].MaxAge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Classes[0].Gender)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Classes) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (item.MinAge != null)
+                {
+                    @Html.DisplayFor(modelItem => item.MinAge)
+                }
+                else
+                {
+                    <text>N/A</text>
+                }
+            </td>
+            <td>
+                @if (item.MaxAge != null)
+                {
+                    @Html.DisplayFor(modelItem => item.MaxAge)
+                }
+                else
+                {
+                    <text>N/A</text>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

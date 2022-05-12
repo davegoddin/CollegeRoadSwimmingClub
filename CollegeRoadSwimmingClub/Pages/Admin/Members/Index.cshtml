@@ -1,0 +1,55 @@
+﻿@page
+@model CollegeRoadSwimmingClub.Pages.Admin.Members.IndexModel
+
+@{
+    ViewData["Title"] = "Members";
+}
+
+<h1>Members</h1>
+
+
+<form method="get">
+    <div class="row row-cols-lg-auto g-3 mb-3">
+        <div class="col-12">
+            <input class="form-control" name="search" placeholder="Enter swimmer name" value="@Model.Search"/>
+        </div>
+        <div class="col-12">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+    
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.FirstNameSort">
+                    @Html.DisplayNameFor(model => model.Members[0].FirstName)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.LastNameSort">
+                    @Html.DisplayNameFor(model => model.Members[0].LastName)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Members) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.Id">View Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
