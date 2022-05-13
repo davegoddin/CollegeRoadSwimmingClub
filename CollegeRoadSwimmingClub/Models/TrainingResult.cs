@@ -11,7 +11,6 @@ namespace CollegeRoadSwimmingClub.Models
         public Event? Event { get; set; }
         [DisplayFormat(DataFormatString = "{0:h\\:mm\\:ss\\.ff}")]
         public TimeSpan Time { get; set; }
-
         [DisplayFormat(DataFormatString = "{0:d}")]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }

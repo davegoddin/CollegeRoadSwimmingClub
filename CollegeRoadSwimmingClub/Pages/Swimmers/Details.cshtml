@@ -49,6 +49,10 @@
                 <input type="hidden" name="id" value="@Model.Member.Id" />
             </div>
             <div class="col-12">
+                <input type ="checkbox" name="compOnly" asp-for="CompOnly" />
+                <label for="compOnly">Competition only?</label>
+            </div>
+            <div class="col-12">
                 <input type="submit" value="Select event" class="btn-primary btn"/>
             </div>
         </div>    
@@ -58,7 +62,7 @@
     <thead>
         <tr>
             <th>
-                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.DateSort">
+                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.DateSort" asp-route-eventId="@Model.EventId">
                     Date
                 </a>
             </th>
@@ -66,12 +70,12 @@
                 Event
             </th>
             <th>
-                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.TimeSort">
+                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.TimeSort" asp-route-eventId="@Model.EventId">
                     Time
                 </a>
             </th>
             <th>
-                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.PositionSort">
+                <a asp-page="./Details" asp-route-id="@Model.Member.Id" asp-route-sortOrder="@Model.PositionSort" asp-route-eventId="@Model.EventId">
                     Position
                 </a>
             </th>

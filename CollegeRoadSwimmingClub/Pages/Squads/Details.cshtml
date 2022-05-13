@@ -28,14 +28,14 @@
             @Html.DisplayFor(model => model.Squad.NumberOfSwimmers)
         </dd>
     </dl>
-    @if (Model.Squad.Coaches.Contains(Model.User.Self))
+    @if (User.Identity.IsAuthenticated && Model.Squad.Coaches.Contains(Model.User.Self))
     {
         <a asp-page="./Edit" asp-route-id="@Model.Squad.Id">Edit</a>
     }
 </div>
 <div class="mb-4">
     <h4>Coaches</h4>
-    @if (Model.Squad.Coaches.Contains(Model.User.Self))
+    @if (User.Identity.IsAuthenticated && Model.Squad.Coaches.Contains(Model.User.Self))
     {
         <a asp-page="./Coaches/Add" asp-route-squadId="@Model.Squad.Id">Add coach</a>
     }
@@ -71,7 +71,7 @@
 <div>
     
     <h4>Swimmers</h4>
-    @if (Model.Squad.Coaches.Contains(Model.User.Self))
+    @if (User.Identity.IsAuthenticated && Model.Squad.Coaches.Contains(Model.User.Self))
     {
         <a asp-page="./Swimmers/Add" asp-route-squadId="@Model.Squad.Id">Add swimmer</a>
     }
@@ -104,7 +104,7 @@
                     @Html.DisplayFor(modelItem => item.Gender)
                 </td>
                 <td>
-                        @if (Model.Squad.Coaches.Contains(Model.User.Self))
+                        @if (User.Identity.IsAuthenticated && Model.Squad.Coaches.Contains(Model.User.Self))
                         {
                             <form method="post" asp-page="./Swimmers/Remove" asp-route-squadId = "@Model.Squad.Id" asp-route-memberId = "@item.Id">
                                 <a asp-page="./Swimmers/Details" asp-route-id="@item.Id">Training Performance</a> |

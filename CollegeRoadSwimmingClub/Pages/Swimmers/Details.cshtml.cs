@@ -29,7 +29,8 @@ namespace CollegeRoadSwimmingClub.Pages.Swimmers
         public List<Result> Results { get; set; }
 
         public int? EventId {  get; set; }
-        public async Task<IActionResult> OnGetAsync(int? id, int? eventId, string sortOrder)
+        public bool CompOnly { get; set; }
+        public async Task<IActionResult> OnGetAsync(int? id, int? eventId, string sortOrder, bool compOnly)
         {
             if (id == null)
             {
@@ -108,6 +109,12 @@ namespace CollegeRoadSwimmingClub.Pages.Swimmers
                 {
                     swimmerEvents.Add(result.Event);
                 }
+            }
+
+            CompOnly = compOnly;
+            if (compOnly)
+            {
+                Results = Results.Where(r => r.Competition).ToList();
             }
 
             List<SelectListItem> eventList = new SelectList(swimmerEvents, "Id", "Name").ToList();

@@ -68,7 +68,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Member.TrainingResults) {
+@foreach (var item in Model.Member.TrainingResults.OrderByDescending(t=> t.Date)) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Event.Name)
@@ -80,7 +80,7 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Training/Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

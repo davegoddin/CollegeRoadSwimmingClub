@@ -26,7 +26,10 @@ namespace CollegeRoadSwimmingClub.Pages.Swimmers
         public Dictionary<string, string> queryParams { get; set; }
 
         public int? EventId { get; set; }
-        public async Task<IActionResult> OnGetAsync(List<int> selectedSwimmer, int? eventId, string sortOrder)
+
+        public bool CompOnly { get; set; }
+        
+        public async Task<IActionResult> OnGetAsync(List<int> selectedSwimmer, int? eventId, string sortOrder, bool compOnly)
         {
 
             queryParams = new Dictionary<string, string>();
@@ -35,6 +38,8 @@ namespace CollegeRoadSwimmingClub.Pages.Swimmers
                 var paramValue = selectedSwimmer[i];
                 queryParams.Add($"{nameof(selectedSwimmer)}[{i}]", paramValue.ToString());
             }
+            queryParams.Add("eventId", eventId.ToString());
+            queryParams.Add("compOnly", compOnly.ToString());
 
             if (selectedSwimmer.Count() < 2)
             {
@@ -119,6 +124,11 @@ namespace CollegeRoadSwimmingClub.Pages.Swimmers
                 }
             }
 
+            CompOnly = compOnly;
+            if (compOnly)
+            {
+                Results = Results.Where(r => r.Competition).ToList();
+            }
             
 
             

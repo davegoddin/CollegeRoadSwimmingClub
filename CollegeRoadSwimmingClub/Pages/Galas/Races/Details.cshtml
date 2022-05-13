@@ -83,7 +83,7 @@
 </table>
 </div>
 <h4>Results</h4>
-@if (User.IsInRole("Administrator"))
+@if (User.IsInRole("Administrator") && Model.Race.DateTime < DateTime.Now)
 {
     <a asp-page="./Results/Create" asp-route-raceId="@Model.Race.Id">Add new result</a>
 }
@@ -104,7 +104,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Race.RaceResults) {
+@foreach (var item in Model.Race.RaceResults.OrderBy(rr => rr.Position)) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Swimmer.FullName)

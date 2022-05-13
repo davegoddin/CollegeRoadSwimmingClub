@@ -35,7 +35,7 @@ namespace CollegeRoadSwimmingClub.Pages.Galas.Races
             }
             else
             {
-                Race.DateTime = DateTime.Today;
+                return BadRequest();
             }
 
             ViewData["ClassId"] = new SelectList(_context.Classes, "Id", "Name");
@@ -53,6 +53,12 @@ namespace CollegeRoadSwimmingClub.Pages.Galas.Races
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            var gala = _context.Galas.Find(Race.GalaId);
+            if (Race.DateTime.Date < gala.StartDate.Date || Race.DateTime.Date > gala.EndDate.Date )
+            {
+                ModelState.AddModelError("Race.DateTime", "Date and time must be within the gala's dates");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

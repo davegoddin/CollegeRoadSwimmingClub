@@ -7,8 +7,10 @@ namespace CollegeRoadSwimmingClub.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "New user must have a username")]
+        [MaxLength(50)]
         public string Username { get; set; }
         [Required(ErrorMessage = "New user must have a password")]
+        [MinLength(6,ErrorMessage = "Password must be at least 6 characters")]
         public string Password { get; set; }
         public ICollection<Member>? LinkedMembers { get; set; }
 

@@ -12,9 +12,11 @@ namespace CollegeRoadSwimmingClub.Models
         public int Id { get; set; }
         [Display(Name = "First Name")]
         [Required]
+        [MaxLength(32)]
         public string FirstName { get; set; }
         [Required]
         [Display(Name = "Last Name")]
+        [MaxLength(32)]
         public string LastName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
@@ -26,13 +28,17 @@ namespace CollegeRoadSwimmingClub.Models
         public Gender Gender { get; set; }
         [Required(ErrorMessage = "Address must have a first line")]
         [Display(Name = "Address Line 1")]
+        [MaxLength(32)]
         public string Address1 { get; set; }
         [Display(Name = "Address Line 2")]
+        [MaxLength(32)]
         public string? Address2 { get; set; }
+        [MaxLength(32)]
         public string? Town { get; set; }
-
+        [MaxLength(32)]
         public string? County { get; set; }
         [Required(ErrorMessage = "Address must have a postcode")]
+        [RegularExpression("^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$", ErrorMessage="Invalid postcode")]
         public string Postcode { get; set; }
 
         [Required(ErrorMessage = "Must have an email address")]

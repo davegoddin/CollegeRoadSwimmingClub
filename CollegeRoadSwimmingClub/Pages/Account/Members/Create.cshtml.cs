@@ -60,6 +60,12 @@ namespace CollegeRoadSwimmingClub.Pages.Account.Members
                 ModelState.AddModelError("Member.DateOfBirth", "Linked members must be under 18, over 18s should make their own account");
             }
 
+            // Can't be born in the future, can't create an account if they're the oldest human ever to live, sorry.
+            if (Member.DateOfBirth > DateTime.Today || Member.DateOfBirth < DateTime.Today.AddYears(-123))
+            {
+                ModelState.AddModelError("Member.DateOfBirth", "Invalid date of birth");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

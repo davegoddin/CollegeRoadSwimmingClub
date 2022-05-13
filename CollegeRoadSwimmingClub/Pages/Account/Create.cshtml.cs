@@ -45,6 +45,12 @@ namespace CollegeRoadSwimmingClub.Pages.Account
             {
                 ModelState.AddModelError("Member.DateOfBirth", "Membership for under 18s must be managed by a parent or guardian");
             }
+
+            // Can't be born in the future, can't create an account if they're the oldest human ever to live, sorry.
+            if (Member.DateOfBirth > DateTime.Today || Member.DateOfBirth < DateTime.Today.AddYears(-123))
+            {
+                ModelState.AddModelError("Member.DateOfBirth", "Invalid date of birth");
+            }
             
             if (!ModelState.IsValid)
             {

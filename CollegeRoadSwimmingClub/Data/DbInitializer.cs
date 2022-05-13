@@ -4,6 +4,7 @@ namespace CollegeRoadSwimmingClub.Data
 {
     public static class DbInitializer
     {
+
         public static void Initialize(CRSCContext context)
         {
             // check for prior initialization
@@ -26,18 +27,21 @@ namespace CollegeRoadSwimmingClub.Data
             {
                 new User { Username = "aanderson", Password = "AQAAAAEAACcQAAAAEDU+5OnW55BMc4POCxpeIWQaRfunkLCGBhH8woHpC7Ma3x+Vr3rvmWuckVOpGToOog==" },
                 new User { Username = "bbrandt", Password = "AQAAAAEAACcQAAAAEDU+5OnW55BMc4POCxpeIWQaRfunkLCGBhH8woHpC7Ma3x+Vr3rvmWuckVOpGToOog=="},
-                new User { Username = "ccooper", Password = "AQAAAAEAACcQAAAAEDU+5OnW55BMc4POCxpeIWQaRfunkLCGBhH8woHpC7Ma3x+Vr3rvmWuckVOpGToOog=="},
+                new User { Username = "ccooper", Password = "AQAAAAEAACcQAAAAEDU+5OnW55BMc4POCxpeIWQaRfunkLCGBhH8woHpC7Ma3x+Vr3rvmWuckVOpGToOog=="}
             };
 
             context.Users.AddRange(sampleUsers);
             context.SaveChanges();
 
-            defaultRoles[0].Users.Add(sampleUsers[0]);
-            defaultRoles[0].Users.Add(sampleUsers[1]);
-            defaultRoles[0].Users.Add(sampleUsers[2]);
+            foreach (var user in sampleUsers)
+            {
+                defaultRoles[0].Users.Add(user);
+            }
+            
             defaultRoles[1].Users.Add(sampleUsers[1]);
             defaultRoles[1].Users.Add(sampleUsers[2]);
             defaultRoles[2].Users.Add(sampleUsers[0]);
+            
 
             context.SaveChanges();
 
@@ -133,6 +137,8 @@ namespace CollegeRoadSwimmingClub.Data
                     UserId = sampleUsers[2].Id,
                     UserMemberLink = UserMemberLink.Parent
                 }
+
+
             };
 
             context.Members.AddRange(sampleMembers);
@@ -186,13 +192,6 @@ namespace CollegeRoadSwimmingClub.Data
                     StartDate = new DateTime(2022, 2, 5),
                     EndDate=new DateTime(2022, 2, 6),
                     Location="Haversham Leisure Centre"
-                },
-                new Gala
-                {
-                    Name = "CRSC Charity Exhibition",
-                    StartDate = new DateTime(2022, 3, 12),
-                    EndDate=new DateTime(2022, 3, 12),
-                    Location="College Road Baths"
                 }
             };
 
@@ -216,7 +215,7 @@ namespace CollegeRoadSwimmingClub.Data
                     Class = sampleClasses[0],
                     ClassId = sampleClasses[0].Id,
                     DateTime = new DateTime(2022, 4, 16),
-                    Event = sampleEvents[1],
+                    Event = sampleEvents[10],
                     EventId = sampleEvents[1].Id,
                     Gala = sampleGalas[0],
                     GalaId = sampleGalas[0].Id
@@ -226,7 +225,7 @@ namespace CollegeRoadSwimmingClub.Data
                     Class = sampleClasses[1],
                     ClassId = sampleClasses[1].Id,
                     DateTime = new DateTime(2022, 4, 16),
-                    Event = sampleEvents[2],
+                    Event = sampleEvents[10],
                     EventId = sampleEvents[2].Id,
                     Gala = sampleGalas[1],
                     GalaId = sampleGalas[1].Id
@@ -244,7 +243,7 @@ namespace CollegeRoadSwimmingClub.Data
                     Position = 2,
                     Swimmer = sampleMembers[1],
                     SwimmerId = sampleMembers[1].Id,
-                    Time = new TimeSpan(0, 0, 1, 35, 120)
+                    Time = new TimeSpan(0, 0, 0, 49, 120)
                 },
             };
 
@@ -256,7 +255,7 @@ namespace CollegeRoadSwimmingClub.Data
                 new TrainingResult {
                     Swimmer = sampleMembers[0],
                     SwimmerId = sampleMembers[0].Id,
-                    Time = new TimeSpan(0, 0, 1, 34, 220),
+                    Time = new TimeSpan(0, 0, 0, 48, 250),
                     Event = sampleEvents[0],
                     EventId = sampleEvents[0].Id,
                     Date = new DateTime(2022, 1, 20)

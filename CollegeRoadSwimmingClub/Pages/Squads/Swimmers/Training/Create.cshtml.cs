@@ -46,6 +46,11 @@ namespace CollegeRoadSwimmingClub.Pages.Squads.Swimmers.Training
                 ModelState.AddModelError("TrainingResult.Time", "Time must be more than 0 and less than 9:59:59:99");
             }
 
+            if (TrainingResult.Date > DateTime.Today)
+            {
+                ModelState.AddModelError("TrainingResult.Date", "Training result cannot be in the future");
+            }
+
             if (!ModelState.IsValid)
             {
                 return OnGet(TrainingResult.SwimmerId);

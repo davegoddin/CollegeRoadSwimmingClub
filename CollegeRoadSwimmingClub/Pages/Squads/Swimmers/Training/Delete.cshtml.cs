@@ -56,7 +56,7 @@ namespace CollegeRoadSwimmingClub.Pages.Squads.Swimmers.Training
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Details", new { id = TrainingResult.SwimmerId});
         }
     }
 }
